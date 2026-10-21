@@ -2,9 +2,22 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class RawMaterial extends Model
 {
-    //
+    use HasFactory;
+
+    protected $guarded = [];
+
+    public function purchaseItems()
+    {
+        return $this->hasMany(PurchaseItem::class);
+    }
+
+    public function productionMaterials()
+    {
+        return $this->hasMany(ProductionMaterial::class);
+    }
 }

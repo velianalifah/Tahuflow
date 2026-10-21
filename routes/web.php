@@ -14,11 +14,13 @@ Route::middleware('guest')->group(function () {
     Route::post('/login', [AuthController::class, 'login']);
 });
 
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ReportController;
+
 // Authenticated routes (sudah login)
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/laporan-penjualan', [ReportController::class, 'sales'])->name('reports.sales');
+    Route::get('/laporan-penjualan/export', [ReportController::class, 'exportSales'])->name('reports.sales.export');
 });
